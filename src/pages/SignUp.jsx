@@ -4,10 +4,8 @@ import Header from "../components/Header.jsx";
 function SignUp() {
   return (
     <>
-      <section className="form">
-        <Header />
-        <SignUpForm />
-      </section>
+      <Header />
+      <SignUpForm />
     </>
   );
 }

@@ -8,7 +8,7 @@ function Header() {
           <img
             src="https://i.imgur.com/lHB6WYc.png" 
             alt="로고"
-            className="w-[150px] h-full"
+            className="w-[100px] h-full"
           />
         </Link>
         <div className="mt-2 md:mt-0 flex space-x-2 md:space-x-4">

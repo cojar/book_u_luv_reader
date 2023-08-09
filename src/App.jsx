@@ -4,6 +4,7 @@ import Home from "./pages/Home.jsx";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css'; 
+import ReaderBook from "./pages/ReaderBook.jsx";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Signup" element={<SignUp />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/ReaderBook" element={<ReaderBook />} />
         <Route path="*" element={<h1>Not Found</h1>}></Route>
       </Routes>
     </BrowserRouter>
