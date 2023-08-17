@@ -1,3 +1,5 @@
+// 유저 프로필 페이지
+// 전역상태에 저장된 유저정보를 불러와 프로필에 맞는 정보 기입
 const MemberProfilePage = () => {
   return (
     <section>

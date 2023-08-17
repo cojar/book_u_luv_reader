@@ -1,5 +1,10 @@
 import { Navigate } from "react-router-dom";
 
+// 도서 상세 페이지
+// 로그인 했는지 여부 체크 필요
+// 로그인 안했다면 메인화면으로 보냄
+// 데이터 로딩 처리 필요
+// api 를 통해 데이터 받아와야함
 const BookDetailPage = () => {
   
     return (

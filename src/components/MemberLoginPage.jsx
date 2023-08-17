@@ -2,6 +2,9 @@ import { Navigate } from "react-router-dom";
 
 const onSubmit = () => {}
 
+// 로그인 페이지
+// 로그인 여부 체크, 로그인 처리 구현 필요
+// 유저정보 전역상태관리 필요(recoil)
 const MemberLoginPage = () => {
   return (
     <section>

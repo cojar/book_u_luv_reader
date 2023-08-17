@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import HeaderMenu1Item from "./HeaderMenu1Item";
 
+// 로그인 여부 체크 필요
+// 전역 상태관리를 이용한 유저데이터 받아오기
 function Header() {
     return ( 
         <>
