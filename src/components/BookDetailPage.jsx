@@ -10,32 +10,32 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BookDetailPage = () => {
-  const { id } = useParams();
+  const { id } = useParams(); //URL 파라미터에서 id 추출 /book/id(여기 값)
 
   const selectedBook = fakeBookContent.find(
     (book) => book.id === parseInt(id, 10)
-  );
+  ); //가짜 데이터에 있는 id로 데이터 찾는 함수
 
   if (!selectedBook) {
-    return <div>책을 찾을 수 없습니다.</div>;
+    return <div>책을 찾을 수 없습니다.</div>; // 없을시 못찾음
   }
 
-  const contentPerPage = 1500;
-  const totalPages = Math.ceil(selectedBook.content.length / contentPerPage);
+  const contentPerPage = 1500; //페이지 글자수 1500자
+  const totalPages = Math.ceil(selectedBook.content.length / contentPerPage); //전체 페이지수 계산 (데이터 글자 길이 / 1500해서 전체 페이지 구현)
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0); // 현재페이지 번호 상태관리
 
   const handlePageChange = (selectedIndex) => {
     setCurrentPage(selectedIndex);
-  };
+  }; //페이지 변경 함수
 
   return (
     <div className="w-full max-w-screen-lg mx-auto">
       <div className="flex flex-col h-screen justify-center">
-        <div className="mb-[10px] text-[50px] text-center">
-          <h2>{selectedBook.title}</h2>
+        <div className="mb-6 text-[50px] text-center font-semibold">
+          {selectedBook.title}
         </div>
-        <div className="text-end mb-[80px]">
+        <div className="text-end mb-6">
           <p>
             현재 페이지: {currentPage + 1}/{totalPages}
           </p>
@@ -46,24 +46,22 @@ const BookDetailPage = () => {
           showIndicators={false}
           selectedItem={currentPage}
           onChange={handlePageChange}
-          renderArrowPrev={(onClickHandler, hasPrev, label) =>
+          renderArrowPrev={(onClickHandler, hasPrev) =>
             hasPrev && (
               <button
                 type="button"
                 onClick={onClickHandler}
-                title={label}
                 className="arrow-button left-arrow"
               >
                 <FontAwesomeIcon icon={faChevronLeft} />
               </button>
             )
           }
-          renderArrowNext={(onClickHandler, hasNext, label) =>
+          renderArrowNext={(onClickHandler, hasNext) =>
             hasNext && (
               <button
                 type="button"
                 onClick={onClickHandler}
-                title={label}
                 className="arrow-button right-arrow"
               >
                 <FontAwesomeIcon icon={faChevronRight} />

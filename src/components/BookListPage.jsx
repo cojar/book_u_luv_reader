@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fakeBookData } from "../fakeData/fakeData";
 import { Link } from "react-router-dom";
 
 const BookListPage = () => {
-  const fontFaceStyle = `
-  @font-face {
-    font-family: 'KyoboHandwriting2022khn';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KyoboHandwriting2022khn.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-  }
-`;
+  const [fontSize, setFontSize] = useState("6rem");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 600) {
+        //브라우저 화면 넓이가 600보자 작을때 1rem 폰트 사이즈
+        setFontSize("1rem");
+      } else {
+        setFontSize("2rem"); // 아닐시 2rem 크기
+      }
+    };
+
+    handleResize(); //handleResize 실행
+    window.addEventListener("resize", handleResize); // 초기 로드 및 화면 크기 변경 시 이벤트 리스너 등록
+
+    // 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const booksPerPage = 6;
   const booksPerRow = 3;
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,10 +42,17 @@ const BookListPage = () => {
     <div className="w-full max-w-screen-lg mx-auto">
       <div className="my-10">
         <div className="w-full mx-auto text-center">
-          <style>{fontFaceStyle}</style>
-          <span
-            style={{ fontFamily: "KyoboHandwriting2022khn", fontSize: "3rem" }}
-          >
+          <style>
+            {`
+          @font-face {
+            font-family: 'KyoboHandwriting2022khn';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KyoboHandwriting2022khn.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+          }
+        `}
+          </style>
+          <span style={{ fontFamily: "KyoboHandwriting2022khn", fontSize }}>
             My books
           </span>
         </div>

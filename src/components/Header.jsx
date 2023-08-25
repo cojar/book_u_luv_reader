@@ -7,6 +7,8 @@ import { isLoggedInState } from "../recoilAtoms";
 // 전역 상태관리를 이용한 유저데이터 받아오기
 function Header() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
+
+  
   return (
     <>
       <header className="top-bar fixed top-0 left-0 w-full z-50 h-10 shadow text-gray-500 bg-white">
