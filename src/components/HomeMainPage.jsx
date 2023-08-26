@@ -7,9 +7,9 @@ const HomeMainPage = () => {
 
     const handleResize = () => {
       if (window.innerWidth <= 600) { //브라우저 화면 넓이가 600보자 작을때 1rem 폰트 사이즈
-        setFontSize('1rem'); 
+        setFontSize('2rem'); 
       } else {
-        setFontSize('2rem'); // 아닐시 2rem 크기
+        setFontSize('3rem'); // 아닐시 2rem 크기
       }
     };
 

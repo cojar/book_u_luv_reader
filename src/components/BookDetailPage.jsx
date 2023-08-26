@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fakeBookContent } from "../fakeData/fakeData";
 import { Carousel } from "react-responsive-carousel";
@@ -10,29 +10,54 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BookDetailPage = () => {
-  const { id } = useParams(); //URL 파라미터에서 id 추출 /book/id(여기 값)
-
+  const { id } = useParams();
   const selectedBook = fakeBookContent.find(
     (book) => book.id === parseInt(id, 10)
-  ); //가짜 데이터에 있는 id로 데이터 찾는 함수
+  );
 
   if (!selectedBook) {
-    return <div>책을 찾을 수 없습니다.</div>; // 없을시 못찾음
+    return <div className="flex justify-center items-center">책을 찾을 수 없습니다.</div>;
   }
 
-  const contentPerPage = 1500; //페이지 글자수 1500자
-  const totalPages = Math.ceil(selectedBook.content.length / contentPerPage); //전체 페이지수 계산 (데이터 글자 길이 / 1500해서 전체 페이지 구현)
+  const isMobile = window.innerWidth <= 600; // 화면이 모바일 크기인지 여부 확인
 
-  const [currentPage, setCurrentPage] = useState(0); // 현재페이지 번호 상태관리
+  const contentPerPage = isMobile ? 500 : 1500; // 화면 크기에 따른 내용 길이 설정
+  const totalPages = Math.ceil(selectedBook.content.length / contentPerPage);
+
+  const [currentPage, setCurrentPage] = useState(0);
 
   const handlePageChange = (selectedIndex) => {
     setCurrentPage(selectedIndex);
-  }; //페이지 변경 함수
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const titleElement = document.querySelector(".title");
+      const contentElement = document.querySelector(".content");
+
+      if (titleElement && contentElement) {
+        if (window.innerWidth <= 600) {
+          titleElement.style.fontSize = "30px"; // 제목 폰트 크기 조정
+          contentElement.style.fontSize = "16px"; // 내용 폰트 크기 조정
+        } else {
+          titleElement.style.fontSize = "50px"; // 제목 원래 폰트 크기
+          contentElement.style.fontSize = "20px"; // 내용 원래 폰트 크기
+        }
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <div className="w-full max-w-screen-lg mx-auto">
       <div className="flex flex-col h-screen justify-center">
-        <div className="mb-6 text-[50px] text-center font-semibold">
+        <div className="mb-6 text-center font-semibold title">
           {selectedBook.title}
         </div>
         <div className="text-end mb-6">
@@ -74,7 +99,7 @@ const BookDetailPage = () => {
               key={index}
               className="flex justify-center items-center h-full"
             >
-              <div className="mb-8 max-w-[700px] text-[20px] overflow-hidden whitespace-pre-wrap mx-auto">
+              <div className="mb-8 max-w-[700px] overflow-hidden whitespace-pre-wrap mx-auto content">
                 {selectedBook.content.substring(
                   index * contentPerPage,
                   (index + 1) * contentPerPage
@@ -87,4 +112,5 @@ const BookDetailPage = () => {
     </div>
   );
 };
+
 export default BookDetailPage;

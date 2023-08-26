@@ -3,22 +3,20 @@ import { fakeBookData } from "../fakeData/fakeData";
 import { Link } from "react-router-dom";
 
 const BookListPage = () => {
-  const [fontSize, setFontSize] = useState("6rem");
+  const [fontSize, setFontSize] = useState("4rem");
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 600) {
-        //브라우저 화면 넓이가 600보자 작을때 1rem 폰트 사이즈
-        setFontSize("1rem");
+        setFontSize("2rem");
       } else {
-        setFontSize("2rem"); // 아닐시 2rem 크기
+        setFontSize("4rem");
       }
     };
 
-    handleResize(); //handleResize 실행
-    window.addEventListener("resize", handleResize); // 초기 로드 및 화면 크기 변경 시 이벤트 리스너 등록
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
-    // 언마운트 시 이벤트 리스너 제거
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -56,26 +54,27 @@ const BookListPage = () => {
             My books
           </span>
         </div>
-        <div className="flex flex-wrap justify-center mt-8">
+        <div className="flex flex-wrap justify-center mt-4">
           {currentBooks.map((book) => (
-            <div key={book.id} className={`w-full sm:w-1/${booksPerRow} p-4`}>
+            <div key={book.id} className="w-full sm:w-1/3 p-2">
               <div className="text-center">
                 <Link to={`/books/${book.id}`}>
                   <img
-                    className="mx-auto w-48 h-65"
+                    className="mx-auto w-32 h-auto"
                     src={book.coverImg}
                     alt=""
                   />
                 </Link>
-                <span className="block text-lg font-semibold my-3">
+                <span className="block text-base font-semibold my-1">
                   {book.title}
                 </span>
-                <span className="block text-lg font-semibold my-3">
+                <span className="block text-base font-semibold my-1">
                   {book.author}
                 </span>
-                <span className="block text-lg font-semibold my-3">
+                <span className="block text-base font-semibold my-1">
                   {book.purchaseDate}
                 </span>
+                <hr className="mt-4 w-full border-gray-300" />
               </div>
             </div>
           ))}
@@ -84,7 +83,7 @@ const BookListPage = () => {
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index}
-              className={`mx-2 px-4 py-2 rounded ${
+              className={`mx-1 px-3 py-1 rounded ${
                 currentPage === index + 1
                   ? "bg-blue-500 text-white"
                   : "bg-gray-300 text-gray-600"
