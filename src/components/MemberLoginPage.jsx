@@ -1,11 +1,44 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { loginFakeUserData } from "../fakeData/fakeData";
+import { useState } from "react";
 
-const onSubmit = () => {}
-
-// 로그인 페이지
-// 로그인 여부 체크, 로그인 처리 구현 필요
-// 유저정보 전역상태관리 필요(recoil)
 const MemberLoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+
+    const enteredEmail = form.email.value.trim();
+    const enteredPassword = form.password.value.trim();
+
+    if (enteredEmail.length === 0) {
+      alert("이메일을 입력해주세요.");
+      form.email.focus();
+      return;
+    }
+
+    if (enteredPassword.length === 0) {
+      alert("비밀번호를 입력해주세요.");
+      form.password.focus();
+      return;
+    }
+
+    if (
+      enteredEmail === loginFakeUserData.data.member.email &&
+      enteredPassword === "123123"
+    ) {
+      console.log("로그인 성공:", loginFakeUserData.data.member);
+      navigate("/");
+    } else {
+      console.error("로그인 실패");
+      alert("로그인 실패");
+    }
+  };
+
   return (
     <section>
       <div className="flex justify-center items-center">
@@ -15,42 +48,44 @@ const MemberLoginPage = () => {
             &nbsp;
             <span>로그인</span>
           </h1>
-          <form onSubmit={onSubmit}>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">아이디</span>
-              </label>
+          <form onSubmit={onSubmit} className="my-[10px]">
+            <div className="form-control mb-[10px]">
               <input
-                type="text"
-                name="username"
-                placeholder="아이디"
+                type="email"
+                name="email"
+                placeholder="이메일"
                 className="input input-bordered"
-                maxlength="50"
+                maxLength="50"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">비밀번호</span>
-              </label>
               <input
                 type="password"
                 name="password"
                 placeholder="비밀번호"
                 className="input input-bordered"
-                maxlength="50"
+                maxLength="50"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div className="mt-3 grid grid-flow-col auto-cols-fr gap-2 px-1">
               <button
                 type="button"
-                onClick={() => Navigate(-1)}
+                onClick={() => navigate(-1)}
                 className="btn btn-secondary btn-outline"
               >
                 뒤로가기
               </button>
-              <input className="btn btn-primary" type="submit" value="로그인" />
+              <input
+                className="btn btn-primary btn-outline"
+                type="submit"
+                value="로그인"
+              />
             </div>
           </form>
         </div>
