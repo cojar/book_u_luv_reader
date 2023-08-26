@@ -19,9 +19,10 @@ const BookDetailPage = () => {
     return <div className="flex justify-center items-center">책을 찾을 수 없습니다.</div>;
   }
 
-  const isMobile = window.innerWidth <= 600; // 화면이 모바일 크기인지 여부 확인
+  const [isMobile, setIsMobile] = useState(window.innerWidth >= 800);
+  const [contentPerPage, setContentPerPage] = useState(isMobile ? 1500 : 500);
+  const [titleFontSize, setTitleFontSize] = useState(isMobile ? "50px" : "30px");
 
-  const contentPerPage = isMobile ? 500 : 1500; // 화면 크기에 따른 내용 길이 설정
   const totalPages = Math.ceil(selectedBook.content.length / contentPerPage);
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -32,18 +33,9 @@ const BookDetailPage = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const titleElement = document.querySelector(".title");
-      const contentElement = document.querySelector(".content");
-
-      if (titleElement && contentElement) {
-        if (window.innerWidth <= 600) {
-          titleElement.style.fontSize = "30px"; // 제목 폰트 크기 조정
-          contentElement.style.fontSize = "16px"; // 내용 폰트 크기 조정
-        } else {
-          titleElement.style.fontSize = "50px"; // 제목 원래 폰트 크기
-          contentElement.style.fontSize = "20px"; // 내용 원래 폰트 크기
-        }
-      }
+      setIsMobile(window.innerWidth >= 800);
+      setContentPerPage(isMobile ? 1500 : 500);
+      setTitleFontSize(isMobile ? "50px" : "30px");
     };
 
     handleResize();
@@ -52,12 +44,12 @@ const BookDetailPage = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="w-full max-w-screen-lg mx-auto">
       <div className="flex flex-col h-screen justify-center">
-        <div className="mb-6 text-center font-semibold title">
+      <div className={`mb-6 text-center font-semibold title`} style={{ fontSize: titleFontSize }}>
           {selectedBook.title}
         </div>
         <div className="text-end mb-6">
@@ -99,7 +91,7 @@ const BookDetailPage = () => {
               key={index}
               className="flex justify-center items-center h-full"
             >
-              <div className="mb-8 max-w-[700px] overflow-hidden whitespace-pre-wrap mx-auto content">
+              <div className="mb-8 max-w-[700px]  overflow-hidden whitespace-pre-wrap mx-auto content">
                 {selectedBook.content.substring(
                   index * contentPerPage,
                   (index + 1) * contentPerPage
