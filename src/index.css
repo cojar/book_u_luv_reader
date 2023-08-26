@@ -1,0 +1,58 @@
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html > body {
+  font-family: "GmarketSansMedium";
+  text-underline-position: under;
+}
+
+html > body,
+html > body .ProseMirror,
+html > body .toastui-editor-contents,
+html > body code[class*="language-"],
+html > body pre[class*="language-"],
+html > body code[class*="lang-"],
+html > body pre[class*="lang-"] {
+  font-family: "GmarketSansMedium";
+  text-underline-position: under;
+  letter-spacing: 0;
+}
+
+html > body code[class*="language-"],
+html > body pre[class*="language-"],
+html > body code[class*="lang-"],
+html > body pre[class*="lang-"] {
+  color: white;
+  background-color: #444;
+}
+
+html > body .ProseMirror,
+html > body .toastui-editor-contents {
+  font-size: 1.1rem;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root > :nth-child(3) {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#root > :nth-child(3) > * {
+  flex-grow: 1;
+}
+
+.table-1 > tbody > tr > :is(th, td) {
+  padding: 14px;
+  text-align: left;
+}
