@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { loginFakeUserData } from "../fakeData/fakeData";
+import { loginFakeUserData } from "../data/data";
 import { useState } from "react";
 
 const MemberLoginPage = () => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fakeBookData } from "../fakeData/fakeData";
+import { fakeBookData } from "../data/data";
 import { Link } from "react-router-dom";
 
 const BookListPage = () => {
