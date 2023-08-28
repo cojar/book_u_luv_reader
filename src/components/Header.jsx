@@ -8,7 +8,6 @@ import { isLoggedInState } from "../recoilAtoms";
 function Header() {
   const isLoggedIn = useRecoilValue(isLoggedInState);
 
-  
   return (
     <>
       <header className="top-bar fixed top-0 left-0 w-full z-50 h-10 shadow text-gray-500 bg-white">
@@ -17,6 +16,16 @@ function Header() {
             <span className="text-[#1E9EFE]">BOOK</span>
             <span className="ml-[2px] hidden lg:block">U_LUV</span>
             <span className="ml-[2px] hidden lg:block">Reader</span>
+          </NavLink>
+          <div className="flex items-center">
+            <span>/</span>
+          </div>
+          <NavLink
+            to="https://www.bookuluv.devh.me/"
+            className="ml-2 flex items-center px-4"
+          >
+            <span className="text-[#1E9EFE]">BOOK</span>
+            <span className="ml-[2px] hidden lg:block">U_LUV</span>
           </NavLink>
           <div className="flex-grow"></div>
           <nav className="menu-1">
