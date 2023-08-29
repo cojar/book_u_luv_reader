@@ -17,16 +17,6 @@ function Header() {
             <span className="ml-[2px] hidden lg:block">U_LUV</span>
             <span className="ml-[2px] hidden lg:block">Reader</span>
           </NavLink>
-          <div className="flex items-center">
-            <span>/</span>
-          </div>
-          <NavLink
-            to="https://www.bookuluv.devh.me/"
-            className="ml-2 flex items-center px-4"
-          >
-            <span className="text-[#1E9EFE]">BOOK</span>
-            <span className="ml-[2px] hidden lg:block">U_LUV</span>
-          </NavLink>
           <div className="flex-grow"></div>
           <nav className="menu-1">
             <ul className="flex h-full">
@@ -57,10 +47,16 @@ function Header() {
                     </HeaderMenu1Item>
                   </>
                 ) : (
-                  <HeaderMenu1Item to="/member/login">
+                  // <HeaderMenu1Item to="/member/login">
+                  //   <div className="flex items-center">
+                  //     <i className="fas fa-sign-in-alt"></i>
+                  //     <span className="ml-2 hidden sm:block">로그인</span>
+                  //   </div>
+                  // </HeaderMenu1Item>
+                  <HeaderMenu1Item to="/member/logout">
                     <div className="flex items-center">
-                      <i className="fas fa-sign-in-alt"></i>
-                      <span className="ml-2 hidden sm:block">로그인</span>
+                      <i className="fas fa-sign-out-alt"></i>
+                      <span className="ml-2 hidden sm:block">로그아웃</span>
                     </div>
                   </HeaderMenu1Item>
                 )}

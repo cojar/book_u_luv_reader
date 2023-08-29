@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { fakeBookData } from "../data/data";
 import { Link } from "react-router-dom";
 
 const BookListPage = () => {
+
+  const [bookList, setBookList] = useState([])
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/books`)
+      .then(reponse => reponse.json())
+      .then(data => {
+        console.log(data)
+        setBookList(data.data.books)
+        }
+      )
+      .catch((err) => console.log("err", err))
+  }, [])
+
   const [fontSize, setFontSize] = useState("4rem");
 
   useEffect(() => {
@@ -28,9 +41,9 @@ const BookListPage = () => {
 
   const startIndex = (currentPage - 1) * booksPerPage;
   const endIndex = startIndex + booksPerPage;
-  const currentBooks = fakeBookData.slice(startIndex, endIndex);
+  const currentBooks = bookList.slice(startIndex, endIndex);
 
-  const totalPages = Math.ceil(fakeBookData.length / booksPerPage);
+  const totalPages = Math.ceil(bookList.length / booksPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -55,14 +68,14 @@ const BookListPage = () => {
           </span>
         </div>
         <div className="flex flex-wrap justify-center mt-4">
-          {currentBooks.map((book) => (
+          {bookList.map((book) => (
             <div key={book.id} className="w-full sm:w-1/3 p-2">
               <div className="text-center">
                 <Link to={`/books/${book.id}`}>
                   <img
                     className="mx-auto w-32 h-auto"
                     src={book.coverImg}
-                    alt=""
+                    alt="책커버"
                   />
                 </Link>
                 <span className="block text-base font-semibold my-1">
