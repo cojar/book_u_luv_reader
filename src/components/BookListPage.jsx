@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 
 const BookListPage = () => {
 
+  const [loding, setloading] = useState(true)
   const [bookList, setBookList] = useState([])
 
   useEffect(() => {
+    setloading(true)
     fetch(`${import.meta.env.VITE_API_URL}/books`)
       .then(reponse => reponse.json())
       .then(data => {
         console.log(data)
         setBookList(data.data.books)
+        setloading(false)
         }
       )
       .catch((err) => console.log("err", err))
@@ -48,6 +51,10 @@ const BookListPage = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  if ( loding ) {
+    return <h1>로딩 중...</h1>
+  }
 
   return (
     <div className="w-full max-w-screen-lg mx-auto">
